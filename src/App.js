@@ -1,25 +1,75 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
 
-function App() {
+function App1() {
+  const [messages, setMessages] = useState([{
+    role: 'system',
+    content: 'Welcome! Please enter query below!'
+  }]);
+
+  function handleSendMessage(messageContent) {
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { role: "user", content: messageContent },
+    ]);
+  };
+
+  function resetMessages(){
+    setMessages(() => [])
+  }
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+
       </header>
+      <h1>
+        VCT Chatbot
+      </h1>
+      <div>
+        {messages.map((message, index) => (
+          <div key={index}>
+            <p>{message.role}: {message.content}</p>
+          </div>
+        ))}
+      </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          const input = e.target.elements.user_text.value;
+          console.log(input);
+
+          if (input.trim() !== "") {
+            handleSendMessage(input);
+            e.target.reset();
+          }
+        }}>
+        <input className="App-textinput" type="text" name="user_text" placeholder="..."></input>
+        <input type="submit"></input>
+      </form>
+      <button
+        onClick={(e) => {
+          resetMessages()
+        }}
+      >
+        Clear Message History
+      </button>
+      {/* <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        const input = e.target.elements.user_text.value;
+        console.log(input);
+        
+        if (input.trim() !== "") {
+          handleSendMessage(input);
+          e.target.reset();
+        }
+      }}>
+        <input type="submit"></input>
+      </form> */}
     </div>
   );
 }
 
-export default App;
+export default App1;
