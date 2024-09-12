@@ -48,19 +48,6 @@ function Chat() {
         >
           Clear Message History
         </button>
-        {/* <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          const input = e.target.elements.user_text.value;
-          console.log(input);
-          
-          if (input.trim() !== "") {
-            handleSendMessage(input);
-            e.target.reset();
-          }
-        }}>
-          <input type="submit"></input>
-        </form> */}
       </div>
     );
   }
